@@ -43,12 +43,10 @@ class BinarySearchTree
   def next_include?(node, score)
     if node.score < score 
       node.right.nil? ? false : node = node.right
-        next_include?(node, score) 
+      next_include?(node, score) 
     elsif node.score > score 
-
       node.left.nil? ? false : node = node.left
-        next_include?(node, score) 
-
+      next_include?(node, score) 
     elsif node.score == score
       true
     end
