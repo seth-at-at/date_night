@@ -78,4 +78,26 @@ class BinarySearchTree
     end
     return @depth
   end
+
+  def max
+    if self.root == nil
+      return nil
+    end
+    node = self.root
+    until node.right.nil? 
+      node = node.right
+    end
+    return {node.title => node.score}
+  end
+
+  def min
+    if self.root == nil
+      nil
+    end
+      node = self.root
+    until node.left.nil? 
+      node = node.left
+    end
+     {node.title => node.score}
+  end
 end
