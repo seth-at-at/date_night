@@ -42,19 +42,13 @@ class BinarySearchTree
 
   def next_include?(node, score)
     if node.score < score 
-      if node.right.nil? 
-        false
-      else
-        node = node.right
+      node.right.nil? ? false : node = node.right
         next_include?(node, score) 
-      end
     elsif node.score > score 
-      if node.left.nil? 
-        false
-      else
-        node = node.left
+
+      node.left.nil? ? false : node = node.left
         next_include?(node, score) 
-      end
+
     elsif node.score == score
       true
     end
@@ -90,4 +84,24 @@ class BinarySearchTree
     end
     { node.title => node.score }
   end
+
+  # def traverse_location(direction)
+  #   if node.score < score 
+  #     if node.direction.nil? 
+  #       false
+  #     else
+  #       node = node.direction
+  #       next_include?(node, score) 
+  #     end
+  #   elsif node.score > score 
+  #     if node.direction.nil? 
+  #       false
+  #     else
+  #       node = node.direction
+  #       next_include?(node, score) 
+  #     end
+  #   elsif node.score == score
+  #     true
+  #   end
+  # end
 end
