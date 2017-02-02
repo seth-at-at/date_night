@@ -2,102 +2,92 @@ require_relative'node.rb'
 
 class BinarySearchTree
   attr_accessor :root
-	def initialize 
-		@root = root
-	end
 
   def insert(score, title)
     new_node = Node.new(score, title)
     @depth = 0
-    if self.root.nil?
-      self.root = new_node
-    else
-      self.compare_location(self.root, new_node) 
-    end
-    return @depth
+    root.nil? ? @root = new_node : compare_location(root, new_node)
+    @depth
   end
 
   def compare_location(node_1, node_2)
     @depth += 1 
+
     if node_2.score < node_1.score 
+
       if node_1.left.nil? 
         node_1.left = node_2
       else
         compare_location(node_1.left,node_2) 
       end
+
     else
-      if node_1.right.nil? 
-        node_1.right = node_2 
-      else
-        compare_location(node_1.right, node_2) 
-      end
+
+        if node_1.right.nil? 
+          node_1.right = node_2 
+        else
+          compare_location(node_1.right, node_2) 
+        end
+      
     end
-    return @depth
+
+      @depth
   end
 
   def include?(score)
-    if self.root == nil 
-      return false
-    end
-    node = self.root
-    if node.score == score 
-      return true
-    else
-      next_include?(node, score) 
-    end
+    return false if root.nil?
+
+    root.score == score ? true : next_include?(root, score)
   end
 
   def next_include?(node, score)
     if node.score < score 
       if node.right.nil? 
-        return false
+        false
       else
         node = node.right
         next_include?(node, score) 
       end
     elsif node.score > score 
       if node.left.nil? 
-        return false
+        false
       else
         node = node.left
         next_include?(node, score) 
       end
     elsif node.score == score
-      return true
+      true
     end
   end
 
   def depth_of(score)
-    if self.root == nil
-      return nil
-    end
-    node = self.root
+    nil if root == nil
+
+    node = root
     @depth = 0
+
     if node.score != score
      @depth += 1
     end
-    return @depth
+    @depth
   end
 
   def max
-    if self.root == nil
-      return nil
-    end
-    node = self.root
-    until node.right.nil? 
-      node = node.right
-    end
-    return {node.title => node.score}
+    traverse(:right)
   end
 
   def min
-    if self.root == nil
-      nil
+    traverse(:left)
+  end
+
+  private
+
+  def traverse(direction)
+    return nil if root.nil?
+    node = root
+    until node.send(direction).nil?
+      node = node.send(direction)
     end
-      node = self.root
-    until node.left.nil? 
-      node = node.left
-    end
-     {node.title => node.score}
+    { node.title => node.score }
   end
 end
