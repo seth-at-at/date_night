@@ -3,9 +3,9 @@ require '../lib/node.rb'
 require_relative 'test_helper'
 
 class BinarySearchTreeTest < Minitest::Test
-	def setup
-		@tree = BinarySearchTree.new
-	end
+  def setup
+    @tree = BinarySearchTree.new
+  end
 
   def test_it_returns_depth_when_inserted
     assert_equal 0, @tree.insert(61, "Bill & Ted's Excellent Adventure")
